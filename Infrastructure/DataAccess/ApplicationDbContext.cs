@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Infrastructure.DataAccess.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.DataAccess
@@ -18,7 +19,9 @@ namespace Infrastructure.DataAccess
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.A
+            modelBuilder.ApplyConfiguration(new IngredientConfiguration());
+            modelBuilder.ApplyConfiguration(new RecipeConfiguration());
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
         }
     }
 }
