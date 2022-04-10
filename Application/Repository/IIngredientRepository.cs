@@ -4,6 +4,6 @@ namespace Application.Repository
 {
     public interface IIngredientsRepository : IRepository<Ingredient>
     {
-        Task<IEnumerable<Ingredient>> GetUserShoppingListAsync(string userId);
+        Task<IEnumerable<Ingredient>> GetUserShoppingListAsync(int userId);
     }
 }
