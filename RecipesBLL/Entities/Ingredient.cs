@@ -17,6 +17,8 @@
 
         public string MeasureUnit { get; private set; }
 
+        public bool IsInShoppingList { get; private set; }
+
         public int RecipeId { get; set; }
 
         public Recipe Recipe { get; private set; }

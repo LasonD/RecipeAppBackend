@@ -2,8 +2,8 @@
 
 namespace Application.Repository
 {
-    public interface IIngredientRepository : IRepository<Ingredient>
+    public interface IIngredientsRepository : IRepository<Ingredient>
     {
-
+        Task<IEnumerable<Ingredient>> GetUserShoppingListAsync(string userId);
     }
 }

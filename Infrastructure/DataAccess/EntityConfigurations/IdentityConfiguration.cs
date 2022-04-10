@@ -11,7 +11,8 @@ namespace Infrastructure.DataAccess.EntityConfigurations
             builder
                 .HasOne(x => x.ApplicationUser)
                 .WithOne()
-                .IsRequired();
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

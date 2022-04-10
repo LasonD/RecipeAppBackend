@@ -2,13 +2,24 @@
 {
     public abstract class AbstractEntity
     {
+        private int _id;
+
         protected AbstractEntity(int id = default)
         {
-            if (id < 0) throw new ArgumentOutOfRangeException(nameof(id));
+            
 
             Id = id;
         }
 
-        public int Id { get; private set; }
+        public int Id
+        {
+            get => _id;
+            set
+            {
+                if (value < 0) throw new ArgumentOutOfRangeException(nameof(value));
+
+                _id = value;
+            }
+        }
     }
 }
