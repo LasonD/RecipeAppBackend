@@ -11,7 +11,7 @@ namespace Infrastructure.DataAccess.Repository
         {
         }
 
-        public async Task<IEnumerable<Recipe>> GetUserRecipesAsync(int userId)
+        public async Task<IEnumerable<Recipe>> GetRecipesOfUserAsync(int userId)
         {
             var user = await _context
                 .Users
@@ -21,18 +21,6 @@ namespace Infrastructure.DataAccess.Repository
             if (user == null) throw new EntityNotFoundException<User>(userId);
 
             return user.Recipes;
-        }
-
-        public async Task<IEnumerable<Ingredient>> GetRecipeIngredientsAsync(int recipeId)
-        {
-            var user = await _context
-                .Recipes
-                .Include(x => x.Ingredients)
-                .FirstOrDefaultAsync(u => u.Id == recipeId);
-
-            if (user == null) throw new EntityNotFoundException<Recipe>(recipeId);
-
-            return user.Ingredients;
         }
     }
 }
