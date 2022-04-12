@@ -1,6 +1,6 @@
 ﻿using Application.Exceptions;
-using Application.Repository;
 using Domain.Entities;
+using Domain.Repository;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.DataAccess.Repository
