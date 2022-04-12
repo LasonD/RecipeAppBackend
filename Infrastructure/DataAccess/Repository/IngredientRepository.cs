@@ -34,5 +34,21 @@ namespace Infrastructure.DataAccess.Repository
 
             return user.Ingredients;
         }
+
+        public async Task<IEnumerable<Ingredient>> AddToShoppingListAsync(int userId, IEnumerable<Ingredient> ingredients)
+        {
+            var user = await _context
+                .Users
+                .Include(x => x.ShoppingList)
+                .FirstOrDefaultAsync(x => x.Id == userId);
+
+            if (user == null) throw new EntityNotFoundException<User>(userId);
+
+            var ingredientsArr = ingredients.ToArray();
+
+            user.AddToShoppingList(ingredientsArr);
+
+            return ingredientsArr;
+        }
     }
 }

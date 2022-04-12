@@ -6,5 +6,6 @@ namespace Domain.Repository
     {
         Task<IEnumerable<Ingredient>> GetShoppingListByUserIdAsync(int userId);
         Task<IEnumerable<Ingredient>> GetIngredientsOfRecipeAsync(int recipeId);
+        Task<IEnumerable<Ingredient>> AddToShoppingListAsync(int userId, IEnumerable<Ingredient> ingredients);
     }
 }

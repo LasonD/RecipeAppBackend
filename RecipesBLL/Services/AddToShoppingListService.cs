@@ -1,17 +1,37 @@
-﻿namespace Domain.Services
+﻿using Domain.Entities;
+using Domain.Repository;
+
+namespace Domain.Services
 {
     public interface IAddToShoppingListService
     {
-        Task AddToShoppingList(int userId, int recipeId);
+        Task AddToShoppingListAsync(int userId, int recipeId);
     }
 
     public class AddToShoppingListService : IAddToShoppingListService
     {
-        private readonly IUserRepository
+        private readonly IUserRepository _userRepository;
+        private readonly IIngredientsRepository _ingredientsRepository;
 
-        public Task AddToShoppingList(int userId, int recipeId)
+        public AddToShoppingListService(IUserRepository userRepository, IIngredientsRepository ingredientsRepository)
         {
-            throw new NotImplementedException();
+            _userRepository = userRepository;
+            _ingredientsRepository = ingredientsRepository;
+        }
+
+        public async Task AddToShoppingListAsync(int userId, int recipeId)
+        {
+            var recipeIngredients = await _ingredientsRepository.GetIngredientsOfRecipeAsync(recipeId);
+
+            var shoppingListIngredients = recipeIngredients
+                .Select(x => new Ingredient(
+                    x.Name,
+                    x.Quantity,
+                    x.MeasureUnit,
+                    isInShoppingList: true
+                ));
+
+
         }
     }
 }

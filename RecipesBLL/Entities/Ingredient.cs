@@ -2,13 +2,14 @@
 {
     public class Ingredient : AbstractEntity
     {
-        public Ingredient(string name, decimal quantity, string measureUnit)
+        public Ingredient(string name, decimal quantity, string measureUnit, bool isInShoppingList = false)
         {
             if (quantity <= 0) throw new ArgumentOutOfRangeException(nameof(quantity));
 
             Name = string.IsNullOrWhiteSpace(name) ? throw new ArgumentNullException(nameof(name)) : name;
             MeasureUnit = string.IsNullOrWhiteSpace(measureUnit) ? throw new ArgumentNullException(nameof(measureUnit)) : measureUnit;
             Quantity = quantity;
+            IsInShoppingList = isInShoppingList;
         }
 
         public string Name { get; private set; }
