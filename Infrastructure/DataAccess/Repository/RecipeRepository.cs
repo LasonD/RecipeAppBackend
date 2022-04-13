@@ -11,16 +11,14 @@ namespace Infrastructure.DataAccess.Repository
         {
         }
 
-        public async Task<IEnumerable<Recipe>> GetRecipesOfUserAsync(int userId)
+        public async Task<IEnumerable<Recipe>?> GetRecipesOfUserAsync(int userId)
         {
             var user = await _context
                 .Users
                 .Include(x => x.Recipes)
                 .FirstOrDefaultAsync(u => u.Id == userId);
 
-            if (user == null) throw new EntityNotFoundException<User>(userId);
-
-            return user.Recipes;
+            return user?.Recipes;
         }
     }
 }

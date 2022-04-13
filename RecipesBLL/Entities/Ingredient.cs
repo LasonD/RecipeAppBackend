@@ -20,7 +20,7 @@
 
         public bool IsInShoppingList { get; private set; }
 
-        public int RecipeId { get; set; }
+        public int RecipeId { get; private set; }
 
         public Recipe Recipe { get; private set; }
     }

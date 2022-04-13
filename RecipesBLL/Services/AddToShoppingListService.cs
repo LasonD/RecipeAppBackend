@@ -31,7 +31,7 @@ namespace Domain.Services
                     isInShoppingList: true
                 ));
 
-
+            await _userRepository.AddToShoppingListAsync(userId, shoppingListIngredients);
         }
     }
 }
