@@ -1,4 +1,6 @@
-﻿namespace RecipesAppApiFull.Commands.AddToShoppingList
+﻿using MediatR;
+
+namespace RecipesAppApiFull.Commands.AddToShoppingList
 {
     public class AddToShoppingListRequest : IRequest
     {

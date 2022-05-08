@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace RecipesAppApiFull.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
     public class RecipesController : ControllerBase
     {

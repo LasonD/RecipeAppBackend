@@ -1,3 +1,5 @@
+using RecipesAppApiFull.Middleware;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -17,6 +19,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseAuthorization();
+app.UseAuthentication();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.MapControllers();
 

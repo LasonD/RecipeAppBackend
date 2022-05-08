@@ -1,8 +1,8 @@
 ﻿namespace RecipesAppApiFull.Exceptions
 {
-    public class EntityNotFoundException<TEntity> : Exception
+    public class EntityNotFoundException : Exception
     {
-        public EntityNotFoundException(object id) : base($"Entity {typeof(TEntity).Name} with id {id} was not found")
+        public EntityNotFoundException(string entityName, object id) : base($"Entity {entityName} with id {id} was not found")
         {
 
         }

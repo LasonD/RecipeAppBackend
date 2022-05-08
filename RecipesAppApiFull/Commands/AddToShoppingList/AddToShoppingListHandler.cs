@@ -1,4 +1,7 @@
-﻿using Domain.Interfaces;
+﻿using Domain.Entities;
+using Domain.Interfaces;
+using MediatR;
+using RecipesAppApiFull.Exceptions;
 
 namespace RecipesAppApiFull.Commands.AddToShoppingList
 {
@@ -19,14 +22,14 @@ namespace RecipesAppApiFull.Commands.AddToShoppingList
 
             if (recipe == null)
             {
-                throw new ArgumentException($"Recipe with id {request.RecipeId} not found");
+                throw new EntityNotFoundException(nameof(Recipe), request.RecipeId);
             }
 
             var user = await _userRepository.GetByIdAsync(request.UserId);
 
             if (user == null)
             {
-                throw new ArgumentException($"User with id {request.UserId} not found");
+                throw new EntityNotFoundException(nameof(User), request.UserId);
             }
 
             user.AddToShoppingList(recipe.Ingredients);
