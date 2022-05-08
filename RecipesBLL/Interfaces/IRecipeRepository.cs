@@ -1,6 +1,6 @@
 ﻿using Domain.Entities;
 
-namespace Domain.Repository
+namespace Domain.Interfaces
 {
     public interface IRecipeRepository : IRepository<Recipe>
     {

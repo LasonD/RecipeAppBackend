@@ -1,4 +1,4 @@
-﻿using Domain.Repository;
+﻿using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace RecipesAppApiFull.Controllers

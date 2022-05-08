@@ -1,7 +1,6 @@
 ﻿using Domain.Interfaces;
-using MediatR;
 
-namespace Application.Commands.AddToShoppingList
+namespace RecipesAppApiFull.Commands.AddToShoppingList
 {
     public class AddToShoppingListHandler : IRequestHandler<AddToShoppingListRequest>
     {
