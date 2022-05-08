@@ -1,6 +1,6 @@
 ﻿namespace Domain.Entities
 {
-    public class Ingredient : AbstractEntity
+    public class Ingredient : AbstractEntity, ICloneable
     {
         public Ingredient(string name, decimal quantity, string measureUnit, bool isInShoppingList = false)
         {
@@ -18,10 +18,12 @@
 
         public string MeasureUnit { get; private set; }
 
-        public bool IsInShoppingList { get; private set; }
+        public bool IsInShoppingList { get; set; }
 
         public int RecipeId { get; private set; }
 
         public Recipe Recipe { get; private set; }
+
+        public object Clone() => new Ingredient(Name, Quantity, MeasureUnit);
     }
 }

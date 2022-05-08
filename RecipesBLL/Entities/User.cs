@@ -9,18 +9,20 @@
 
         public IReadOnlyCollection<Recipe> Recipes => _recipes;
 
-        public void AddToShoppingList(IEnumerable<Ingredient> ingredients)
+        public void AddToShoppingList(IEnumerable<Ingredient> ingredientsToAdd)
         {
-            if (ingredients == null) throw new ArgumentNullException(nameof(ingredients));
+            if (ingredientsToAdd == null) throw new ArgumentNullException(nameof(ingredientsToAdd));
 
-            var ingredientsArr = ingredients.ToArray();
+            var ingredientsArr = ingredientsToAdd.ToArray();
 
             foreach (var ingredient in ingredientsArr)
             {
-                ingredient.IsInShoppingList
-            }  
+                var shoppingListIngredient = (Ingredient)ingredient.Clone();
 
-            _shoppingList.AddRange(ingredients);
+                shoppingListIngredient.IsInShoppingList = true;
+
+                _shoppingList.Add(shoppingListIngredient);
+            }
         }
     }
 }

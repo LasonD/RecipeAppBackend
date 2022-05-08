@@ -6,8 +6,6 @@
 
         protected AbstractEntity(int id = default)
         {
-            
-
             Id = id;
         }
 

@@ -1,5 +1,4 @@
-﻿using Application.Exceptions;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Repository;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,9 +25,14 @@ namespace Infrastructure.DataAccess.Repository
             return result.Entity;
         }
 
-        public async Task<T> DeleteAsync(int id)
+        public async Task<T?> DeleteAsync(int id)
         {
-            var entity = await GetByIdAsync(id) ?? throw new EntityNotFoundException<T>(id);
+            var entity = await GetByIdAsync(id);
+
+            if (entity == null)
+            {
+                return default;
+            }
 
             return _context.Set<T>().Remove(entity).Entity;
         }

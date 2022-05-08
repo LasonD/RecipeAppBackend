@@ -2,7 +2,7 @@
 {
     public class Recipe : AbstractEntity
     {
-        private List<Ingredient> _ingredients = new();
+        private readonly List<Ingredient> _ingredients = new();
 
         public Recipe(string name, string description)
         {
@@ -16,9 +16,9 @@
 
         public IReadOnlyCollection<Ingredient> Ingredients => _ingredients;
 
-        public void AddIngredient(Ingredient ingredient)
+        public void AddIngredient(string name, int quantity, string measureUnit)
         {
-            if (ingredient == null) throw new ArgumentNullException(nameof(ingredient));
+            var ingredient = new Ingredient(name, quantity, measureUnit, isInShoppingList: false);
 
             _ingredients.Add(ingredient);
         }
