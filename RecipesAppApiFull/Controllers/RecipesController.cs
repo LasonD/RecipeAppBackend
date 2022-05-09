@@ -5,7 +5,7 @@ namespace RecipesAppApiFull.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class RecipesController : ControllerBase
+    public class RecipesController : Microsoft.AspNetCore.Mvc.ControllerBase
     {
         private readonly IIngredientsRepository _ingredientsRepository;
         private readonly IRecipeRepository _recipeRepository;

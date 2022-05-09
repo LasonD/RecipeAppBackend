@@ -1,5 +1,5 @@
-using Infrastructure.DataAccess;
-using Microsoft.EntityFrameworkCore;
+using MediatR;
+using RecipesAppApiFull;
 using RecipesAppApiFull.Mapping;
 using RecipesAppApiFull.Middleware;
 
@@ -11,13 +11,15 @@ var config = builder.Configuration
     .AddJsonFile("appsettings.json")
     .Build();
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddAutoMapper(typeof(MappingProfile));
-builder.Services.AddDbContext<ApplicationDbContext>(options => 
-    options.UseSqlServer(config.GetConnectionString("ApplicationDbContextConnectionString")));
+var services = builder.Services;
+
+services.AddControllers();
+services.AddEndpointsApiExplorer();
+services.AddSwaggerGen();
+services.AddAutoMapper(typeof(MappingProfile));
+services.AddMediatR(typeof(Program));
+services.AddConfiguredDbContexts(config);
+services.AddConfiguredIdentity();
 
 var app = builder.Build();
 

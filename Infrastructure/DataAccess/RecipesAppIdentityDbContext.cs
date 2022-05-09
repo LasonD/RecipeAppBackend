@@ -1,4 +1,5 @@
-﻿using Infrastructure.Identity;
+﻿using Infrastructure.DataAccess.EntityConfigurations;
+using Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +12,8 @@ namespace Infrastructure.DataAccess
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.ApplyConfiguration(new IdentityConfiguration());
         }
     }
 }
