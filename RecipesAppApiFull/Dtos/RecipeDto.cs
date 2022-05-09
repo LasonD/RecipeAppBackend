@@ -1,9 +1,4 @@
 ﻿namespace RecipesAppApiFull.Dtos
 {
-    public class RecipeDto : DtoBase<int>
-    {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public IEnumerable<IngredientDto> Ingredients { get; set;}
-    }
+    public record RecipeDto(int Id, string Name, IEnumerable<IngredientDto> Ingredients) : DtoBase<int>(Id);
 }
