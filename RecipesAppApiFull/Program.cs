@@ -13,7 +13,8 @@ var config = builder.Configuration
 
 var services = builder.Services;
 
-services.AddControllers();
+services.AddControllers()
+    .AddNewtonsoftJson(o => o.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
 services.AddAutoMapper(typeof(MappingProfile));

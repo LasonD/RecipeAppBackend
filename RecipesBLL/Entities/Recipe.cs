@@ -16,7 +16,7 @@
 
         public IReadOnlyCollection<Ingredient> Ingredients => _ingredients;
 
-        public void AddIngredient(string name, int quantity, string measureUnit)
+        public void AddIngredient(string name, decimal quantity, string measureUnit)
         {
             var ingredient = new Ingredient(name, quantity, measureUnit, isInShoppingList: false);
 
