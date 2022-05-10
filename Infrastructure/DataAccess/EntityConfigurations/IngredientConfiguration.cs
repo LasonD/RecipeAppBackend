@@ -10,8 +10,13 @@ namespace Infrastructure.DataAccess.EntityConfigurations
         {
             builder.Metadata.SetNavigationAccessMode(PropertyAccessMode.Property);
 
-            builder
-                .HasKey(x => x.Id);
+            builder.Property(x => x.Quantity)
+                .HasColumnType("decimal(5, 2)")
+                .IsRequired();
+
+            builder.Property(x => x.Name)
+                .HasColumnType("nvarchar(50)")
+                .IsRequired();
 
             builder
                 .HasOne(x => x.Recipe);

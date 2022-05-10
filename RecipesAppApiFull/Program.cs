@@ -18,7 +18,7 @@ services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
 services.AddAutoMapper(typeof(MappingProfile));
 services.AddMediatR(typeof(Program));
-services.AddConfiguredDbContexts(config);
+services.AddConfiguredDataAccess(config);
 services.AddConfiguredIdentity();
 
 var app = builder.Build();

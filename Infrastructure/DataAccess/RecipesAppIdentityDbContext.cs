@@ -7,6 +7,11 @@ namespace Infrastructure.DataAccess
 {
     public class RecipesAppIdentityDbContext : IdentityDbContext<RecipesAppIdentityUser>
     {
+        public RecipesAppIdentityDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        {
+            Database.EnsureCreated();
+        }
+
         public DbSet<RecipesAppIdentityUser> Identities { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
