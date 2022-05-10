@@ -15,8 +15,8 @@ namespace Infrastructure.DataAccess.EntityConfigurations
 
             builder
                 .HasMany(x => x.Ingredients)
-                .WithOne()
-                .HasForeignKey(x => x.Id);
+                .WithOne(x => x.Recipe)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder
                 .Property(x => x.Name)

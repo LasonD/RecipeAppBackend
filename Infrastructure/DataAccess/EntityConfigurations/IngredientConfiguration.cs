@@ -19,7 +19,8 @@ namespace Infrastructure.DataAccess.EntityConfigurations
                 .IsRequired();
 
             builder
-                .HasOne(x => x.Recipe);
+                .HasOne(x => x.Recipe)
+                .WithMany(x => x.Ingredients);
         }
     }
 }
