@@ -1,4 +1,4 @@
 ﻿namespace RecipesAppApiFull.Dtos
 {
-    public record RegistrationDto(string UserName, string Email, string Password);
+    public record RegistrationDto(string FirstName, string LastName, string Email, string Password);
 }
