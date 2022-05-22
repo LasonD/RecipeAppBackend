@@ -1,8 +1,11 @@
-﻿using Domain.Interfaces;
+﻿using System.Text;
+using Domain.Interfaces;
 using Infrastructure.DataAccess;
 using Infrastructure.DataAccess.Repository;
 using Infrastructure.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace RecipesAppApiFull
 {
@@ -25,8 +28,29 @@ namespace RecipesAppApiFull
 
         public static IServiceCollection AddConfiguredIdentity(this IServiceCollection services)
         {
-            var identityBuilder = services.AddIdentityCore<RecipesAppIdentityUser>();
+            var identityBuilder = services.AddIdentityCore<AppIdentityUser>();
             identityBuilder.AddEntityFrameworkStores<RecipesAppIdentityDbContext>();
+
+            return services;
+        }
+
+        public static IServiceCollection AddConfiguredJwtBearer(this IServiceCollection services, IConfiguration config)
+        {
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    var jwtSettings = new JwtSettings(config);
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = jwtSettings.ValidIssuer,
+                        ValidAudience = jwtSettings.ValidAudience,
+                        IssuerSigningKey = jwtSettings.SecurityKey
+                    };
+                });
 
             return services;
         }

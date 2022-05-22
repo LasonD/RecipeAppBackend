@@ -7,7 +7,7 @@ namespace RecipesAppApiFull.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UserController : Microsoft.AspNetCore.Mvc.ControllerBase
+    public class UserController : ControllerBase
     {
         private readonly IMediator _mediator;
 

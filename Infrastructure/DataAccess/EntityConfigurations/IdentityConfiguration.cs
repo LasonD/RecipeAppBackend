@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.DataAccess.EntityConfigurations
 {
-    public class IdentityConfiguration : IEntityTypeConfiguration<RecipesAppIdentityUser>
+    public class IdentityConfiguration : IEntityTypeConfiguration<AppIdentityUser>
     {
-        public void Configure(EntityTypeBuilder<RecipesAppIdentityUser> builder)
+        public void Configure(EntityTypeBuilder<AppIdentityUser> builder)
         {
             builder
-                .HasOne(x => x.ApplicationUser)
+                .HasOne(x => x.DomainUser)
                 .WithOne()
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);

@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.DataAccess
 {
-    public class RecipesAppIdentityDbContext : IdentityDbContext<RecipesAppIdentityUser>
+    public class RecipesAppIdentityDbContext : IdentityDbContext<AppIdentityUser>
     {
         public RecipesAppIdentityDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
             Database.EnsureCreated();
         }
 
-        public DbSet<RecipesAppIdentityUser> Identities { get; set; }
+        public DbSet<AppIdentityUser> Identities { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

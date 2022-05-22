@@ -21,6 +21,7 @@ services.AddAutoMapper(typeof(MappingProfile));
 services.AddMediatR(typeof(Program));
 services.AddConfiguredDataAccess(config);
 services.AddConfiguredIdentity();
+services.AddConfiguredJwtBearer(config);
 
 var app = builder.Build();
 
