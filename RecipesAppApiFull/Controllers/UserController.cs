@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using System.Security.Claims;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RecipesAppApiFull.Commands.AddToShoppingList;
@@ -21,7 +22,10 @@ namespace RecipesAppApiFull.Controllers
         [HttpPost("shopping-list/{recipeId}")]
         public async Task<IActionResult> AddToShoppingList(int recipeId)
         {
-            var userId = 0; // TODO
+            // TODO refactor
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+
+            var userId = int.Parse(identity?.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value);
 
             var request = new AddToShoppingListRequest(userId, recipeId);
 
