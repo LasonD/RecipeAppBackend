@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.DataAccess
 {
-    public class RecipesAppIdentityDbContext : IdentityDbContext<AppIdentityUser>
+    public sealed class RecipesAppIdentityDbContext : IdentityDbContext<AppIdentityUser>
     {
-        public RecipesAppIdentityDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        public RecipesAppIdentityDbContext(DbContextOptions<RecipesAppIdentityDbContext> options) : base(options)
         {
             Database.EnsureCreated();
         }

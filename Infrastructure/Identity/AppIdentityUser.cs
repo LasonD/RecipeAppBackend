@@ -5,6 +5,11 @@ namespace Infrastructure.Identity
 {
     public sealed class AppIdentityUser : IdentityUser
     {
+        public AppIdentityUser()
+        {
+
+        }
+
         public AppIdentityUser(string firstName, string lastName, string email)
         {
             UserName = $"{firstName} {lastName}";

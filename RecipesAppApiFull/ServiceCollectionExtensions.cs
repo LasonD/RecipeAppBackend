@@ -52,6 +52,8 @@ namespace RecipesAppApiFull
                     };
                 });
 
+            services.AddTransient<IJwtGenerator, JwtGenerator>();
+
             return services;
         }
     }
