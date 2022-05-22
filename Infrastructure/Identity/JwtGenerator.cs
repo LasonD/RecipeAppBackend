@@ -6,7 +6,8 @@ namespace Infrastructure.Identity
 {
     public interface IJwtGenerator
     {
-        (string token, DateTime expiresIn) GenerateToken(AppIdentityUser user);
+        JwtSecurityToken GenerateToken(AppIdentityUser user);
+        string FlattenToken(JwtSecurityToken jwtSecurityToken);
     }
 
     public class JwtGenerator : IJwtGenerator
@@ -18,7 +19,7 @@ namespace Infrastructure.Identity
             _configuration = configuration;
         }
 
-        public (string token, DateTime expiresIn) GenerateToken(AppIdentityUser user)
+        public JwtSecurityToken GenerateToken(AppIdentityUser user)
         {
             var jwtSettings = new JwtSettings(_configuration);
 
@@ -36,7 +37,12 @@ namespace Infrastructure.Identity
                 expires: jwtSettings.ExpiresIn, 
                 signingCredentials: jwtSettings.SigningCredentials);
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            return token;
+        }
+
+        public string FlattenToken(JwtSecurityToken securityToken)
+        {
+            return new JwtSecurityTokenHandler().WriteToken(securityToken);
         }
     }
 }

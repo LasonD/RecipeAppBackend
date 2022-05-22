@@ -33,9 +33,10 @@ namespace RecipesAppApiFull.Commands.Login
                 throw new EntityNotFoundException("user", request.Email);
             }
 
-            var (token, expiresIn) = _jwtGenerator.GenerateToken(user);
+            var token = _jwtGenerator.GenerateToken(user);
+            var tokenString = _jwtGenerator.FlattenToken(token);
 
-            return new JwtResponse(token, expiresIn, new[] { "User" });
+            return new JwtResponse(tokenString,  user.Email, token.ValidTo, user.Id);
         }
     }
 }

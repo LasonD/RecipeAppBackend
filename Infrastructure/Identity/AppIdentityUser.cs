@@ -11,6 +11,6 @@ namespace Infrastructure.Identity
             Email = email;
         }
 
-        private User DomainUser { get; set; } = new User();
+        public User DomainUser { get; private set; } = new User();
     }
 }
