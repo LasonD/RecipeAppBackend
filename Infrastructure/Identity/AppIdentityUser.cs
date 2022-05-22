@@ -10,11 +10,18 @@ namespace Infrastructure.Identity
 
         }
 
-        public AppIdentityUser(string firstName, string lastName, string email)
+        public AppIdentityUser(string userName, string firstName, string lastName, string email)
         {
-            UserName = $"{firstName} {lastName}";
+            UserName = userName;
+            NormalizedUserName = userName.ToUpper();
+            FirstName = firstName;
+            LastName = lastName;
             Email = email;
+            NormalizedEmail = email.ToUpper();
         }
+
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
 
         public User DomainUser { get; private set; } = new User();
     }

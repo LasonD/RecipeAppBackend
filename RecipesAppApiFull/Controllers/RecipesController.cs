@@ -44,6 +44,7 @@ namespace RecipesAppApiFull.Controllers
             return Ok(await _recipeRepository.GetByIdAsync(id));
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetRecipes()
         {

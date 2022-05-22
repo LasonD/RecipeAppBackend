@@ -31,6 +31,7 @@ namespace RecipesAppApiFull.Controllers
         public async Task<IActionResult> Register([FromBody] RegistrationDto registrationInfo, CancellationToken cancellationToken)
         {
             var request = new RegisterRequest(
+                registrationInfo.UserName,
                 registrationInfo.FirstName, 
                 registrationInfo.LastName, 
                 registrationInfo.Email,

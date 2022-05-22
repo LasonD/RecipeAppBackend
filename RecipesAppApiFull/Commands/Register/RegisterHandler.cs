@@ -19,7 +19,7 @@ namespace RecipesAppApiFull.Commands.Register
 
         public async Task<JwtResponse> Handle(RegisterRequest request, CancellationToken cancellationToken)
         {
-            var newUser = new AppIdentityUser(request.FirstName, request.LastName, request.Email);
+            var newUser = new AppIdentityUser(request.UserName, request.FirstName, request.LastName, request.Email);
 
             var identityResult = await _userManager.CreateAsync(newUser, request.Password);
 
