@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RecipesAppApiFull.Dtos;
@@ -7,6 +8,7 @@ using RecipesAppApiFull.Dtos;
 namespace RecipesAppApiFull.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/[controller]")]
     public class RecipesController : ControllerBase
     {

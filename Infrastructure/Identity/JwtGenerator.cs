@@ -27,7 +27,7 @@ namespace Infrastructure.Identity
             {
                 new(ClaimTypes.Name, user.UserName),
                 new(ClaimTypes.Email, user.Email),
-                new(ClaimTypes.NameIdentifier, user.Id),
+                new(ClaimTypes.NameIdentifier, user.DomainUser.Id.ToString()),
             };
 
             var token = new JwtSecurityToken(

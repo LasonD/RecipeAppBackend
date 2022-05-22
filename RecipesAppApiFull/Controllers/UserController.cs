@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RecipesAppApiFull.Commands.AddToShoppingList;
 using RecipesAppApiFull.Exceptions;
@@ -6,6 +7,7 @@ using RecipesAppApiFull.Exceptions;
 namespace RecipesAppApiFull.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {

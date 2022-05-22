@@ -36,7 +36,7 @@ namespace RecipesAppApiFull.Commands.Login
             var token = _jwtGenerator.GenerateToken(user);
             var tokenString = _jwtGenerator.FlattenToken(token);
 
-            return new JwtResponse(tokenString,  user.Email, token.ValidTo, user.Id);
+            return new JwtResponse(tokenString, user.Email, token.ValidTo, user.DomainUser.Id);
         }
     }
 }
