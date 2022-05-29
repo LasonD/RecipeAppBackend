@@ -25,15 +25,22 @@ namespace RecipesAppApiFull.Middleware
             }
             catch (Exception ex)
             {
-                await WriteErrorResponseAsync(context, HttpStatusCode.InternalServerError, ex.Message);
+                if (ex is IValidationException validationError)
+                {
+                    await WriteErrorResponseAsync(context, HttpStatusCode.BadRequest, validationError.Errors.ToArray());
+                }
+                else
+                {
+                    await WriteErrorResponseAsync(context, HttpStatusCode.InternalServerError, ex.Message);
+                }
             }
         }
 
-        private Task WriteErrorResponseAsync(HttpContext context, HttpStatusCode statusCode, string message)
+        private Task WriteErrorResponseAsync(HttpContext context, HttpStatusCode statusCode, params string[] messages)
         {
             context.Response.StatusCode = (int)statusCode;
 
-            return context.Response.WriteAsync(new ErrorDetails(statusCode, message).ToString());
+            return context.Response.WriteAsync(new ErrorDetails(statusCode, messages).ToString());
         }
     }
 }

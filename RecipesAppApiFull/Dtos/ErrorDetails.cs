@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace RecipesAppApiFull.Dtos
 {
-    public record ErrorDetails(HttpStatusCode StatusCode, string Message)
+    public record ErrorDetails(HttpStatusCode StatusCode, params string[] Messages)
     {
         public override string ToString()
         {

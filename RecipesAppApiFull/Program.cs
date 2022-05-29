@@ -22,6 +22,7 @@ services.AddMediatR(typeof(Program));
 services.AddConfiguredDataAccess(config);
 services.AddConfiguredIdentity();
 services.AddConfiguredJwtBearer(config);
+services.AddCors();
 
 var app = builder.Build();
 
@@ -31,6 +32,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors(p => p
+    .SetIsOriginAllowed(origin => origin == config["Jwt:ValidAudience"])
+    .AllowAnyHeader());
 
 app.UseAuthorization();
 app.UseAuthentication();
