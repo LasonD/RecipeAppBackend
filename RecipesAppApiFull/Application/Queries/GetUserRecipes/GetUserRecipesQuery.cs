@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using RecipesAppApiFull.Dtos;
 
-namespace RecipesAppApiFull.Queries.GetUserRecipes
+namespace RecipesAppApiFull.Application.Queries.GetUserRecipes
 {
     // TODO: add pagination, filtering support
     public class GetUserRecipesQuery : IRequest<IEnumerable<RecipeDto>>, IRequest<Unit>

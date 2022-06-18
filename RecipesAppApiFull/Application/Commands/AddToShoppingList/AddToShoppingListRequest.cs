@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace RecipesAppApiFull.Commands.AddToShoppingList
+namespace RecipesAppApiFull.Application.Commands.AddToShoppingList
 {
     public class AddToShoppingListRequest : IRequest
     {

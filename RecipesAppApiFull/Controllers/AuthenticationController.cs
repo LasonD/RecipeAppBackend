@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using RecipesAppApiFull.Commands.Login;
-using RecipesAppApiFull.Commands.Register;
+using RecipesAppApiFull.Application.Commands.Login;
+using RecipesAppApiFull.Application.Commands.Register;
 using RecipesAppApiFull.Dtos;
 
 namespace RecipesAppApiFull.Controllers

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using RecipesAppApiFull.Dtos;
 using RecipesAppApiFull.Exceptions;
 
-namespace RecipesAppApiFull.Commands.Register
+namespace RecipesAppApiFull.Application.Commands.Register
 {
     public class RegisterHandler : IRequestHandler<RegisterRequest, JwtResponse>
     {

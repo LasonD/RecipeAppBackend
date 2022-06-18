@@ -5,7 +5,7 @@ using MediatR;
 using RecipesAppApiFull.Dtos;
 using RecipesAppApiFull.Exceptions;
 
-namespace RecipesAppApiFull.Queries.GetUserRecipes
+namespace RecipesAppApiFull.Application.Queries.GetUserRecipes
 {
     public class GetUserRecipesQueryHandler : IRequestHandler<GetUserRecipesQuery, IEnumerable<RecipeDto>>
     {

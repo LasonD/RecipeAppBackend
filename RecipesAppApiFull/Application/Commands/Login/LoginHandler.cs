@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using RecipesAppApiFull.Dtos;
 using RecipesAppApiFull.Exceptions;
 
-namespace RecipesAppApiFull.Commands.Login
+namespace RecipesAppApiFull.Application.Commands.Login
 {
     public class LoginHandler : IRequestHandler<LoginRequest, JwtResponse>
     {

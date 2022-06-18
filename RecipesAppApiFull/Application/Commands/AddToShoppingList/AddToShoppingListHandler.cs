@@ -3,7 +3,7 @@ using Domain.Interfaces;
 using MediatR;
 using RecipesAppApiFull.Exceptions;
 
-namespace RecipesAppApiFull.Commands.AddToShoppingList
+namespace RecipesAppApiFull.Application.Commands.AddToShoppingList
 {
     public class AddToShoppingListHandler : IRequestHandler<AddToShoppingListRequest>
     {

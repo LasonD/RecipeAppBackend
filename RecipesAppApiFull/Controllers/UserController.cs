@@ -1,9 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RecipesAppApiFull.Commands.AddToShoppingList;
+using RecipesAppApiFull.Application.Commands.AddToShoppingList;
+using RecipesAppApiFull.Application.Queries.GetUserRecipes;
 using RecipesAppApiFull.Helpers;
-using RecipesAppApiFull.Queries.GetUserRecipes;
 
 namespace RecipesAppApiFull.Controllers
 {

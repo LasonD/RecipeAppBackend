@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using RecipesAppApiFull.Dtos;
 
-namespace RecipesAppApiFull.Commands.Register
+namespace RecipesAppApiFull.Application.Commands.Register
 {
     public class RegisterRequest : IRequest<JwtResponse>
     {
