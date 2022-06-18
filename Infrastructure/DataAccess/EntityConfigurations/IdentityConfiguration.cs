@@ -15,6 +15,10 @@ namespace Infrastructure.DataAccess.EntityConfigurations
                 .HasForeignKey<User>()
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder
+                .Navigation(x => x.DomainUser)
+                .AutoInclude();
         }
     }
 }

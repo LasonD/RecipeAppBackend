@@ -1,9 +1,9 @@
-﻿using System.Security.Claims;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RecipesAppApiFull.Commands.AddToShoppingList;
-using RecipesAppApiFull.Exceptions;
+using RecipesAppApiFull.Helpers;
+using RecipesAppApiFull.Queries.GetUserRecipes;
 
 namespace RecipesAppApiFull.Controllers
 {
@@ -19,30 +19,28 @@ namespace RecipesAppApiFull.Controllers
             _mediator = mediator;
         }
 
-        [HttpPost("shopping-list/{recipeId}")]
-        public async Task<IActionResult> AddToShoppingList(int recipeId)
+        [HttpGet]
+        public async Task<IActionResult> GetRecipes([FromQuery] bool withIngredients = true, CancellationToken cancellationToken = default)
         {
-            // TODO refactor
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            var userId = this.RetrieveUserId();
 
-            var userId = int.Parse(identity?.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value);
+            var request = new GetUserRecipesQuery(userId, withIngredients);
+
+            var result = await _mediator.Send(request, cancellationToken);
+
+            return Ok(result);
+        }
+
+        [HttpPost("shopping-list/{recipeId}")]
+        public async Task<IActionResult> AddToShoppingList(int recipeId, CancellationToken cancellationToken)
+        {
+            var userId = this.RetrieveUserId();
 
             var request = new AddToShoppingListRequest(userId, recipeId);
 
-            try
-            {
-                await _mediator.Send(request);
+            await _mediator.Send(request, cancellationToken);
 
-                return Ok();
-            }
-            catch (EntityNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
+            return Ok();
         }
     }
 }

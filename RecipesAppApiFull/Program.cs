@@ -16,7 +16,7 @@ var services = builder.Services;
 services.AddControllers()
     .AddNewtonsoftJson(o => o.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 services.AddEndpointsApiExplorer();
-services.AddSwaggerGen();
+services.AddConfiguredSwaggerGen();
 services.AddAutoMapper(typeof(MappingProfile));
 services.AddMediatR(typeof(Program));
 services.AddConfiguredDataAccess(config);
@@ -33,6 +33,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<ExceptionMiddleware>();
+
 app.UseCors(p => p
     .SetIsOriginAllowed(origin => origin == config["Jwt:ValidAudience"])
     .AllowAnyHeader());
@@ -40,7 +42,7 @@ app.UseCors(p => p
 app.UseAuthorization();
 app.UseAuthentication();
 
-app.UseMiddleware<ExceptionMiddleware>();
+app.UseMiddleware<UserIdExtractor>();
 
 app.MapControllers();
 
