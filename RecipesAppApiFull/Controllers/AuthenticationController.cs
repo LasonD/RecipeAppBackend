@@ -20,7 +20,7 @@ namespace RecipesAppApiFull.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto loginInfo, CancellationToken cancellationToken)
         {
-            var request = new LoginRequest(loginInfo.Email, loginInfo.Password);
+            var request = new LoginCommand(loginInfo.Email, loginInfo.Password);
 
             var result = await _mediator.Send(request, cancellationToken);
 
@@ -30,7 +30,7 @@ namespace RecipesAppApiFull.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegistrationDto registrationInfo, CancellationToken cancellationToken)
         {
-            var request = new RegisterRequest(
+            var request = new RegisterCommand(
                 registrationInfo.UserName,
                 registrationInfo.FirstName, 
                 registrationInfo.LastName, 

@@ -22,5 +22,9 @@
 
             _ingredients.Add(ingredient);
         }
+
+        public int AuthorId { get; private set; }
+
+        public User Author { get; private set; }
     }
 }

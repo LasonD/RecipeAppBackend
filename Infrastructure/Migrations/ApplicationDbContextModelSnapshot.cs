@@ -67,6 +67,9 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -75,12 +78,9 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("AuthorId");
 
                     b.ToTable("Recipes");
                 });
@@ -97,9 +97,16 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("AppIdentityUserId1")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AppIdentityUserId")
+                        .IsUnique();
+
+                    b.HasIndex("AppIdentityUserId1")
                         .IsUnique();
 
                     b.ToTable("Users");
@@ -115,9 +122,6 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("DomainUserId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -165,9 +169,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DomainUserId");
-
-                    b.ToTable("AppIdentityUser");
+                    b.ToTable("Identities");
                 });
 
             modelBuilder.Entity("Domain.Entities.Ingredient", b =>
@@ -187,9 +189,13 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Recipe", b =>
                 {
-                    b.HasOne("Domain.Entities.User", null)
+                    b.HasOne("Domain.Entities.User", "Author")
                         .WithMany("Recipes")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>
@@ -197,19 +203,14 @@ namespace Infrastructure.Migrations
                     b.HasOne("Infrastructure.Identity.AppIdentityUser", null)
                         .WithOne()
                         .HasForeignKey("Domain.Entities.User", "AppIdentityUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Infrastructure.Identity.AppIdentityUser", b =>
-                {
-                    b.HasOne("Domain.Entities.User", "DomainUser")
-                        .WithMany()
-                        .HasForeignKey("DomainUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("DomainUser");
+                    b.HasOne("Infrastructure.Identity.AppIdentityUser", null)
+                        .WithOne("DomainUser")
+                        .HasForeignKey("Domain.Entities.User", "AppIdentityUserId1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.Entities.Recipe", b =>
@@ -222,6 +223,12 @@ namespace Infrastructure.Migrations
                     b.Navigation("Recipes");
 
                     b.Navigation("ShoppingList");
+                });
+
+            modelBuilder.Entity("Infrastructure.Identity.AppIdentityUser", b =>
+                {
+                    b.Navigation("DomainUser")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

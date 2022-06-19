@@ -17,9 +17,6 @@ namespace RecipesAppApiFull
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("ApplicationDbContextConnectionString")));
 
-            services.AddDbContext<RecipesAppIdentityDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("ApplicationDbContextConnectionString")));
-
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IRecipeRepository, RecipeRepository>();
             services.AddTransient<IIngredientsRepository, IngredientRepository>();
@@ -31,7 +28,7 @@ namespace RecipesAppApiFull
         {
             services
                 .AddIdentityCore<AppIdentityUser>()
-                .AddEntityFrameworkStores<RecipesAppIdentityDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
             return services;
         }

@@ -3,5 +3,5 @@ using RecipesAppApiFull.Dtos;
 
 namespace RecipesAppApiFull.Application.Commands.Login
 {
-    public record LoginRequest(string Email, string Password) : IRequest<JwtResponse>;
+    public record LoginCommand(string Email, string Password) : IRequest<JwtResponse>;
 }

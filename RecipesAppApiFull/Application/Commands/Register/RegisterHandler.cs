@@ -6,7 +6,7 @@ using RecipesAppApiFull.Exceptions;
 
 namespace RecipesAppApiFull.Application.Commands.Register
 {
-    public class RegisterHandler : IRequestHandler<RegisterRequest, JwtResponse>
+    public class RegisterHandler : IRequestHandler<RegisterCommand, JwtResponse>
     {
         private readonly UserManager<AppIdentityUser> _userManager;
         private readonly IJwtGenerator _jwtGenerator;
@@ -17,11 +17,11 @@ namespace RecipesAppApiFull.Application.Commands.Register
             _jwtGenerator = jwtGenerator;
         }
 
-        public async Task<JwtResponse> Handle(RegisterRequest request, CancellationToken cancellationToken)
+        public async Task<JwtResponse> Handle(RegisterCommand command, CancellationToken cancellationToken)
         {
-            var newUser = new AppIdentityUser(request.UserName, request.FirstName, request.LastName, request.Email);
+            var newUser = new AppIdentityUser(command.UserName, command.FirstName, command.LastName, command.Email);
 
-            var identityResult = await _userManager.CreateAsync(newUser, request.Password);
+            var identityResult = await _userManager.CreateAsync(newUser, command.Password);
 
             if (!identityResult.Succeeded)
             {

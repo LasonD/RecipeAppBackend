@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RecipesAppApiFull.Application.Commands.AddToShoppingList;
+using RecipesAppApiFull.Application.Commands.CreateRecipe;
 using RecipesAppApiFull.Application.Queries.GetUserRecipes;
+using RecipesAppApiFull.Dtos;
 using RecipesAppApiFull.Helpers;
 
 namespace RecipesAppApiFull.Controllers
@@ -31,12 +33,24 @@ namespace RecipesAppApiFull.Controllers
             return Ok(result);
         }
 
+        [HttpPost("recipes")]
+        public async Task<IActionResult> CreateRecipe([FromBody] RecipeDto recipe, CancellationToken cancellationToken)
+        {
+            var userId = this.RetrieveUserId();
+
+            var request = new CreateRecipeCommand(userId, recipe);
+
+            await _mediator.Send(request, cancellationToken);
+
+            return Ok();
+        }
+
         [HttpPost("shopping-list/{recipeId}")]
         public async Task<IActionResult> AddToShoppingList(int recipeId, CancellationToken cancellationToken)
         {
             var userId = this.RetrieveUserId();
 
-            var request = new AddToShoppingListRequest(userId, recipeId);
+            var request = new AddToShoppingListCommand(userId, recipeId);
 
             await _mediator.Send(request, cancellationToken);
 

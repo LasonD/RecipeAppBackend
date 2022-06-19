@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Infrastructure.DataAccess.EntityConfigurations;
+using Infrastructure.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.DataAccess
@@ -14,6 +15,7 @@ namespace Infrastructure.DataAccess
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<AppIdentityUser> Identities { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -22,6 +24,7 @@ namespace Infrastructure.DataAccess
             modelBuilder.ApplyConfiguration(new IngredientConfiguration());
             modelBuilder.ApplyConfiguration(new RecipeConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new IdentityConfiguration());
         }
     }
 }

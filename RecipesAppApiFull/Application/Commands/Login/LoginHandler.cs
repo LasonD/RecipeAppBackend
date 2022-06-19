@@ -6,7 +6,7 @@ using RecipesAppApiFull.Exceptions;
 
 namespace RecipesAppApiFull.Application.Commands.Login
 {
-    public class LoginHandler : IRequestHandler<LoginRequest, JwtResponse>
+    public class LoginHandler : IRequestHandler<LoginCommand, JwtResponse>
     {
         private readonly UserManager<AppIdentityUser> _userManager;
         private readonly IJwtGenerator _jwtGenerator;
@@ -17,20 +17,20 @@ namespace RecipesAppApiFull.Application.Commands.Login
             _jwtGenerator = jwtGenerator;
         }
 
-        public async Task<JwtResponse> Handle(LoginRequest request, CancellationToken cancellationToken)
+        public async Task<JwtResponse> Handle(LoginCommand command, CancellationToken cancellationToken)
         {
-            var user = await _userManager.FindByEmailAsync(request.Email);
+            var user = await _userManager.FindByEmailAsync(command.Email);
 
             if (user == null)
             {
-                throw new EntityNotFoundException("user", request.Email);
+                throw new EntityNotFoundException("user", command.Email);
             }
 
-            var credentialsAreCorrect = await _userManager.CheckPasswordAsync(user, request.Password);
+            var credentialsAreCorrect = await _userManager.CheckPasswordAsync(user, command.Password);
 
             if (!credentialsAreCorrect)
             {
-                throw new EntityNotFoundException("user", request.Email);
+                throw new EntityNotFoundException("user", command.Email);
             }
 
             var token = _jwtGenerator.GenerateToken(user);

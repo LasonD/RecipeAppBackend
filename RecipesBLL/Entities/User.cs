@@ -24,5 +24,19 @@
                 _shoppingList.Add(shoppingListIngredient);
             }
         }
+
+        public Recipe CreateRecipe(string name, string description)
+        {
+            if (_recipes.Any(r => r.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)))
+            {
+                throw new ArgumentException($"User already has recipe with name '{name}'");
+            }
+
+            var recipe = new Recipe(name, description);
+
+            _recipes.Add(recipe);
+
+            return recipe;
+        }
     }
 }

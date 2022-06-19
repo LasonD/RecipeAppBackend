@@ -3,9 +3,9 @@ using RecipesAppApiFull.Dtos;
 
 namespace RecipesAppApiFull.Application.Commands.Register
 {
-    public class RegisterRequest : IRequest<JwtResponse>
+    public class RegisterCommand : IRequest<JwtResponse>
     {
-        public RegisterRequest(string userName, string firstName, string lastName, string email, string password)
+        public RegisterCommand(string userName, string firstName, string lastName, string email, string password)
         {
             UserName = userName;
             FirstName = firstName;

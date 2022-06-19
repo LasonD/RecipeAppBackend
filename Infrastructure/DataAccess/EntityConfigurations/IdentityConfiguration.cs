@@ -1,5 +1,4 @@
-﻿using Domain.Entities;
-using Infrastructure.Identity;
+﻿using Infrastructure.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -12,7 +11,6 @@ namespace Infrastructure.DataAccess.EntityConfigurations
             builder
                 .HasOne(x => x.DomainUser)
                 .WithOne()
-                .HasForeignKey<User>()
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
 

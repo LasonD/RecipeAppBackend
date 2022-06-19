@@ -51,18 +51,18 @@ namespace RecipesAppApiFull.Controllers
             return Ok(await _recipeRepository.Query().ToListAsync());
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetRecipe(int recipeId, bool withIngredients = false, CancellationToken cancellationToken = default)
-        {
-            var ingredients = await _recipeRepository.Query().ToListAsync(cancellationToken);
-
-            if (ingredients == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(ingredients);
-        }
+        // [HttpGet]
+        // public async Task<IActionResult> GetRecipe(int recipeId, bool withIngredients = false, CancellationToken cancellationToken = default)
+        // {
+        //     var ingredients = await _recipeRepository.Query().ToListAsync(cancellationToken);
+        //
+        //     if (ingredients == null)
+        //     {
+        //         return NotFound();
+        //     }
+        //
+        //     return Ok(ingredients);
+        // }
 
         [HttpGet("{recipeId}/ingredients")]
         public async Task<IActionResult> GetIngredients(int recipeId)

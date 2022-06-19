@@ -5,7 +5,7 @@ using RecipesAppApiFull.Exceptions;
 
 namespace RecipesAppApiFull.Application.Commands.AddToShoppingList
 {
-    public class AddToShoppingListHandler : IRequestHandler<AddToShoppingListRequest>
+    public class AddToShoppingListHandler : IRequestHandler<AddToShoppingListCommand>
     {
         private readonly IUserRepository _userRepository;
         private readonly IRecipeRepository _recipeRepository;
@@ -16,20 +16,20 @@ namespace RecipesAppApiFull.Application.Commands.AddToShoppingList
             _recipeRepository = recipeRepository;
         }
 
-        public async Task<Unit> Handle(AddToShoppingListRequest request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(AddToShoppingListCommand command, CancellationToken cancellationToken)
         {
-            var recipe = await _recipeRepository.GetByIdAsync(request.RecipeId);
+            var recipe = await _recipeRepository.GetByIdAsync(command.RecipeId);
 
             if (recipe == null)
             {
-                throw new EntityNotFoundException(nameof(Recipe), request.RecipeId);
+                throw new EntityNotFoundException(nameof(Recipe), command.RecipeId);
             }
 
-            var user = await _userRepository.GetByIdAsync(request.UserId);
+            var user = await _userRepository.GetByIdAsync(command.UserId);
 
             if (user == null)
             {
-                throw new EntityNotFoundException(nameof(User), request.UserId);
+                throw new EntityNotFoundException(nameof(User), command.UserId);
             }
 
             user.AddToShoppingList(recipe.Ingredients);

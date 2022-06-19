@@ -1,5 +1,4 @@
 ﻿using Domain.Entities;
-using Infrastructure.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -15,10 +14,11 @@ namespace Infrastructure.DataAccess.EntityConfigurations
                 .HasKey(x => x.Id);
 
             builder
-                .HasOne(typeof(AppIdentityUser))
-                .WithOne()
-                .HasForeignKey(typeof(User))
-                .IsRequired();
+                .HasMany(x => x.Recipes)
+                .WithOne(x => x.Author);
+
+            builder
+                .HasMany(x => x.ShoppingList);
         }
     }
 }
