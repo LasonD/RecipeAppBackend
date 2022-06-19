@@ -20,7 +20,7 @@ namespace RecipesAppApiFull.Application.Queries.GetUserRecipes
 
         public async Task<IEnumerable<RecipeDto>> Handle(GetUserRecipesQuery request, CancellationToken cancellationToken)
         {
-            var recipes = await _recipeRepository.GetRecipesOfUserAsync(request.UserId);
+            var recipes = await _recipeRepository.GetRecipesOfUserAsync(request.UserId, request.IncludeIngredients, cancellationToken);
 
             if (recipes == null)
             {

@@ -21,7 +21,7 @@ namespace RecipesAppApiFull.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet]
+        [HttpGet("recipes")]
         public async Task<IActionResult> GetRecipes([FromQuery] bool withIngredients = true, CancellationToken cancellationToken = default)
         {
             var userId = this.RetrieveUserId();

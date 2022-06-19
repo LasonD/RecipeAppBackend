@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Infrastructure.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -9,6 +10,11 @@ namespace Infrastructure.DataAccess.EntityConfigurations
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.Metadata.SetNavigationAccessMode(PropertyAccessMode.Property);
+
+            builder
+                .HasOne(typeof(AppIdentityUser))
+                .WithOne("DomainUser")
+                .HasForeignKey(typeof(User));
 
             builder
                 .HasKey(x => x.Id);

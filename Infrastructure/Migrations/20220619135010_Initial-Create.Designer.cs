@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220619121001_Initial-Create")]
+    [Migration("20220619135010_Initial-Create")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -99,16 +99,9 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("AppIdentityUserId1")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AppIdentityUserId")
-                        .IsUnique();
-
-                    b.HasIndex("AppIdentityUserId1")
                         .IsUnique();
 
                     b.ToTable("Users");
@@ -203,14 +196,8 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.User", b =>
                 {
                     b.HasOne("Infrastructure.Identity.AppIdentityUser", null)
-                        .WithOne()
-                        .HasForeignKey("Domain.Entities.User", "AppIdentityUserId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Infrastructure.Identity.AppIdentityUser", null)
                         .WithOne("DomainUser")
-                        .HasForeignKey("Domain.Entities.User", "AppIdentityUserId1")
+                        .HasForeignKey("Domain.Entities.User", "AppIdentityUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

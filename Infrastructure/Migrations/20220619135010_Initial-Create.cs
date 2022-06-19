@@ -42,8 +42,7 @@ namespace Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    AppIdentityUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    AppIdentityUserId1 = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    AppIdentityUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -51,11 +50,6 @@ namespace Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_Users_Identities_AppIdentityUserId",
                         column: x => x.AppIdentityUserId,
-                        principalTable: "Identities",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Users_Identities_AppIdentityUserId1",
-                        column: x => x.AppIdentityUserId1,
                         principalTable: "Identities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -130,12 +124,6 @@ namespace Infrastructure.Migrations
                 name: "IX_Users_AppIdentityUserId",
                 table: "Users",
                 column: "AppIdentityUserId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_AppIdentityUserId1",
-                table: "Users",
-                column: "AppIdentityUserId1",
                 unique: true);
         }
 

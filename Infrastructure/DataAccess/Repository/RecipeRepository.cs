@@ -10,12 +10,25 @@ namespace Infrastructure.DataAccess.Repository
         {
         }
 
-        public async Task<IEnumerable<Recipe>?> GetRecipesOfUserAsync(int userId)
+        public async Task<IEnumerable<Recipe>?> GetRecipesOfUserAsync(int userId, bool withIngredients, CancellationToken cancellationToken)
         {
-            var user = await _context
+            User? user;
+
+            var baseQuery = _context
                 .Users
-                .Include(x => x.Recipes)
-                .FirstOrDefaultAsync(u => u.Id == userId);
+                .Include(x => x.Recipes);
+
+            if (withIngredients)
+            {
+                user = await baseQuery
+                    .ThenInclude(x => x.Ingredients)
+                    .FirstOrDefaultAsync(u => u.Id == userId, cancellationToken);
+            }
+            else
+            {
+                user = await baseQuery
+                    .FirstOrDefaultAsync(u => u.Id == userId, cancellationToken);
+            }
 
             return user?.Recipes;
         }
