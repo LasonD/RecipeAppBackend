@@ -6,10 +6,11 @@ namespace RecipesAppApiFull.Controllers
     [Route("api/[controller]")]
     public class TestController : ControllerBase
     {
-        [HttpGet("")]
+        [HttpGet("hello")]
+        [Produces("text/html")]
         public string Test()
         {
-            return "Hello World!";
+            return "<h1 style=\"color: blue;\">Hello World!</h1>";
         }
     }
 }
