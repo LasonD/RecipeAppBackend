@@ -7,9 +7,9 @@ namespace RecipesAppApiFull.Controllers
     public class TestController : ControllerBase
     {
         [HttpGet("hello")]
-        public IActionResult Test()
+        public string Test()
         {
-            return Content("<h1 style=\"color: blue;\">Hello World!</h1>", "text/html");
+            return "Hello World!";
         }
     }
 }
