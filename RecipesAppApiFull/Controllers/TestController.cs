@@ -6,7 +6,7 @@ namespace RecipesAppApiFull.Controllers
     [Route("api/[controller]")]
     public class TestController : ControllerBase
     {
-        [HttpGet("")]
+        [HttpGet("hello")]
         public string Test()
         {
             return "Hello World!";
