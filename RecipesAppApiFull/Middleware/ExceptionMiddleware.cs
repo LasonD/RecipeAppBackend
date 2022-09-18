@@ -23,6 +23,10 @@ namespace RecipesAppApiFull.Middleware
             {
                 await WriteErrorResponseAsync(context, HttpStatusCode.NotFound, ex.Message);
             }
+            catch (AccessForbiddenException ex)
+            {
+                await WriteErrorResponseAsync(context, ex.StatusCode, ex.Message);
+            }
             catch (Exception ex)
             {
                 if (ex is IValidationException validationError)

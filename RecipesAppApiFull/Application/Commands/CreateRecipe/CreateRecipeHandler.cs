@@ -27,7 +27,7 @@ namespace RecipesAppApiFull.Application.Commands.CreateRecipe
                 throw new EntityNotFoundException(nameof(User), request.UserId);
             }
 
-            var newRecipe = user.CreateRecipe(request.Recipe.Name, request.Recipe.Description);
+            var newRecipe = user.CreateRecipe(request.Recipe.Name, request.Recipe.Description, request.Recipe.ImageUrl);
 
             foreach (var ingredient in request.Recipe.Ingredients)
             {

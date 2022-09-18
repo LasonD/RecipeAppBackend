@@ -3,6 +3,7 @@
     public class Recipe : AbstractEntity
     {
         private readonly List<Ingredient> _ingredients = new();
+        private string _name;
 
         public Recipe(string name, string description)
         {
@@ -10,9 +11,18 @@
             Description = string.IsNullOrWhiteSpace(description) ? throw new ArgumentNullException(nameof(description)) : description;
         }
 
-        public string Name { get; private set; }
+        public string Name
+        {
+            get => _name;
+            private set
+            {
+                _name = value;
+            }
+        }
 
         public string Description { get; private set; }
+
+        public string ImageUrl { get; private set; }
 
         public IReadOnlyCollection<Ingredient> Ingredients => _ingredients;
 

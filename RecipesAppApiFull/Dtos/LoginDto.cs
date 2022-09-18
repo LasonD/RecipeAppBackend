@@ -1,6 +1,6 @@
-﻿using MediatR;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace RecipesAppApiFull.Dtos
 {
-    public record LoginDto(string Email, string Password);
+    public record LoginDto([Required] string Email, [Required] string Password);
 }

@@ -45,6 +45,18 @@ namespace RecipesAppApiFull.Controllers
             return Ok();
         }
 
+        [HttpPut("recipes/{id}")]
+        public async Task<IActionResult> UpdateRecipe(int recipeId, [FromBody] RecipeDto recipe, CancellationToken cancellationToken)
+        {
+            var userId = this.RetrieveUserId();
+
+            var request = new CreateRecipeCommand(userId, recipe);
+
+            await _mediator.Send(request, cancellationToken);
+
+            return Ok();
+        }
+
         [HttpPost("shopping-list/{recipeId}")]
         public async Task<IActionResult> AddToShoppingList(int recipeId, CancellationToken cancellationToken)
         {
@@ -52,9 +64,9 @@ namespace RecipesAppApiFull.Controllers
 
             var request = new AddToShoppingListCommand(userId, recipeId);
 
-            await _mediator.Send(request, cancellationToken);
+            var shoppingList = await _mediator.Send(request, cancellationToken);
 
-            return Ok();
+            return Ok(shoppingList);
         }
     }
 }

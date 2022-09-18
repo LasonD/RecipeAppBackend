@@ -25,7 +25,7 @@
             }
         }
 
-        public Recipe CreateRecipe(string name, string description)
+        public Recipe CreateRecipe(string name, string description, string imageUrl, IEnumerable<Ingredient>? ingredients = null)
         {
             if (_recipes.Any(r => r.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)))
             {
@@ -33,6 +33,11 @@
             }
 
             var recipe = new Recipe(name, description);
+
+            foreach (var ingredient in ingredients ?? Enumerable.Empty<Ingredient>())
+            {
+                recipe.AddIngredient(ingredient.Name, ingredient.Quantity, ingredient.MeasureUnit);
+            }
 
             _recipes.Add(recipe);
 

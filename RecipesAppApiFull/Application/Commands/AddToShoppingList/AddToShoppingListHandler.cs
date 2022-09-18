@@ -1,12 +1,15 @@
-﻿using Domain.Entities;
+﻿using AutoMapper;
+using Domain.Entities;
 using Domain.Interfaces;
 using MediatR;
+using RecipesAppApiFull.Dtos;
 using RecipesAppApiFull.Exceptions;
 
 namespace RecipesAppApiFull.Application.Commands.AddToShoppingList
 {
-    public class AddToShoppingListHandler : IRequestHandler<AddToShoppingListCommand>
+    public class AddToShoppingListHandler : IRequestHandler<AddToShoppingListCommand, IEnumerable<IngredientDto>>
     {
+        private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
         private readonly IRecipeRepository _recipeRepository;
 
@@ -16,7 +19,7 @@ namespace RecipesAppApiFull.Application.Commands.AddToShoppingList
             _recipeRepository = recipeRepository;
         }
 
-        public async Task<Unit> Handle(AddToShoppingListCommand command, CancellationToken cancellationToken)
+        public async Task<IEnumerable<IngredientDto>> Handle(AddToShoppingListCommand command, CancellationToken cancellationToken)
         {
             var recipe = await _recipeRepository.GetByIdAsync(command.RecipeId);
 
@@ -36,7 +39,7 @@ namespace RecipesAppApiFull.Application.Commands.AddToShoppingList
 
             await _userRepository.SaveChangesAsync();
 
-            return Unit.Value;
+            return _mapper.Map<IEnumerable<Ingredient>, IEnumerable<IngredientDto>>(user.ShoppingList);
         }
     }
 }
